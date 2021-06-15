@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 
+import 'base/base_theme.dart';
 import 'const/const.dart';
 import 'utils/utils.dart';
 
@@ -59,6 +60,7 @@ class _AppState extends State<App> {
         },
         debugShowCheckedModeBanner: false,
         title: AppStrings.appName,
+        theme: getThemeApp(isDarkMode: false),
         initialRoute: '/',
         getPages: route,
         logWriterCallback: (log, {bool isError}) {

@@ -15,4 +15,5 @@ class AppStrings {
   static final String imgSplash1 = 'assets/images/splash1.png';
   static final String imgSplash2 = 'assets/images/splash2.png';
   static final String imgSplash3 = 'assets/images/splash3.png';
+  static final String imgBackground = 'assets/images/globe-700.jpg';
 }
