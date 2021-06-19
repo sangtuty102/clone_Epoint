@@ -35,12 +35,12 @@ ThemeData getThemeApp({bool isDarkMode = false}) {
       subtitle1: _textTheme.subtitle1
           .copyWith(fontSize: 14, color: AppColors.textColorTheme(isDarkMode)),
       subtitle2: _textTheme.subtitle2
-          .copyWith(fontSize: 12, color: AppColors.subTextColor(isDarkMode)),
+          .copyWith(fontSize: 14, color: AppColors.subTextColor(isDarkMode)),
       // body
       bodyText1: _textTheme.bodyText1
           .copyWith(fontSize: 16, color: AppColors.textColorTheme(isDarkMode)),
       bodyText2: _textTheme.bodyText2
-          .copyWith(fontSize: 14, color: AppColors.subTextColor(isDarkMode)),
+          .copyWith(fontSize: 16, color: AppColors.subTextColor(isDarkMode)),
       // caption - chú thích trong app
       caption: _textTheme.caption
           .copyWith(fontSize: 12, color: AppColors.textColorTheme(isDarkMode)),
@@ -81,7 +81,7 @@ ThemeData getThemeApp({bool isDarkMode = false}) {
       );
 
   BottomAppBarTheme _buildBottomAppBarTheme() =>
-      base.bottomAppBarTheme.copyWith(color: Colors.white);
+      base.bottomAppBarTheme.copyWith(color: Colors.transparent);
 
   BottomSheetThemeData _buildBottomSheetTheme() =>
       base.bottomSheetTheme.copyWith(

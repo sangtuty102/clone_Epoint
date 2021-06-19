@@ -2,6 +2,7 @@ import 'package:clone_epoint/base/base.dart';
 import 'package:clone_epoint/const/const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 abstract class BaseLoginPage<T extends BaseGetxController>
@@ -23,23 +24,37 @@ abstract class BaseLoginPage<T extends BaseGetxController>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: SizedBox()),
-                ClipOval(
-                        child: Image.asset(AppStrings.imgBackground,
-                            height: 100, fit: BoxFit.fill))
-                    .paddingSymmetric(
-                        vertical: AppDimens.paddingHuge,
-                        horizontal: AppDimens.paddingDefault),
                 Expanded(
-                  child: FlatButton.icon(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Colors.white,
+                      ).paddingAll(AppDimens.paddingDefault),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                        child: Image.asset(AppStrings.imgLogoEVN,
+                            height: 120, fit: BoxFit.cover))
+                    .paddingSymmetric(
+                        vertical: 35, horizontal: AppDimens.paddingDefault),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: FlatButton.icon(
                       onPressed: () {
                         //TODO: urlLunch call
                       },
                       icon: Icon(Icons.headset_mic_outlined),
-                      label: Text('Hỗ trợ')),
+                      label: Text(AppStrings.help),
+                    ).paddingOnly(right: AppDimens.paddingDefault),
+                  ),
                 )
               ],
-            ),
+            ).paddingOnly(top: AppDimens.paddingDefault),
             Expanded(
                 child: Container(
               width: double.infinity,

@@ -1,5 +1,6 @@
 import 'package:clone_epoint/const/const.dart';
 import 'package:clone_epoint/page/splash/splash_controller.dart';
+import 'package:clone_epoint/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -71,53 +72,39 @@ class SplashPage extends GetView<SplashController> {
                         ),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.grey[300],
+                          color: Colors.grey,
                         ),
                       ),
                     )
                   : SizedBox(),
             ),
             Expanded(
-              child: GestureDetector(
-                onTap: () {
+              child: baseButtonGradient(
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Obx(
+                      () => Text(
+                        controller.currentPage.value != 2
+                            ? AppStrings.continues
+                            : AppStrings.beginNow,
+                        style: TextStyle(
+                            color: Colors.white, fontSize: AppDimens.textBody),
+                      ),
+                    )),
+                    Icon(
+                      Icons.navigate_next_outlined,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+                onPressed: () {
                   if (controller.currentPage.value != 2) {
                     pageController.jumpToPage(controller.currentPage.value + 1);
                   } else {
                     controller.navtoLoginPage();
                   }
                 },
-                child: Container(
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    gradient: LinearGradient(
-                      colors: <Color>[
-                        Color(0xFF42A5F5),
-                        Color(0xFF0D47A1),
-                      ],
-                    ),
-                  ),
-                  padding: EdgeInsets.all(AppDimens.paddingDefault),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Obx(
-                        () => Text(
-                          controller.currentPage.value != 2
-                              ? 'Tiếp tục'
-                              : 'Bắt đầu trải nghiệm',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: AppDimens.textBody),
-                        ),
-                      )),
-                      Icon(
-                        Icons.navigate_next_outlined,
-                        color: Colors.white,
-                      )
-                    ],
-                  ),
-                ),
               ),
             ),
           ],
@@ -130,7 +117,7 @@ class SplashPage extends GetView<SplashController> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(child: Image.asset(AppStrings.imgLogo)),
+          Expanded(child: Image.asset(model.pathImage)),
           Text(
             model.title,
             style: TextStyle(

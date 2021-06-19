@@ -17,7 +17,7 @@ class BuildInputText extends StatefulWidget {
 
   final FocusNode nextNode;
 
-  final bool obscureText;
+  final bool isPassword;
 
   final String isStringEmpty;
 
@@ -46,7 +46,7 @@ class BuildInputText extends StatefulWidget {
       this.submitFunc,
       this.onNext,
       this.nextNode,
-      this.obscureText = false,
+      this.isPassword = false,
       this.isStringEmpty,
       this.iconNextTextInputAction = TextInputAction.next,
       this.textInputType = TextInputType.text,
@@ -60,15 +60,15 @@ class BuildInputText extends StatefulWidget {
 }
 
 class _BuildInputTextState extends State<BuildInputText> {
-  bool _isShowButtonClear = false;
+  bool _isShowSuffixIcon = false;
+  bool _isShowPassword = false;
   @override
   void initState() {
+    _isShowPassword = widget.isPassword;
     widget.controller.addListener(() {
-      if (widget.controller.text.isNotEmpty) {
-        setState(() {
-          _isShowButtonClear = true;
-        });
-      }
+      setState(() {
+        _isShowSuffixIcon = widget.controller.text.isNotEmpty;
+      });
     });
     super.initState();
   }
@@ -90,40 +90,40 @@ class _BuildInputTextState extends State<BuildInputText> {
     widget.controller.addListener(() => setState(() {}));
 
     return Container(
-        child: TextFormField(
-      inputFormatters: widget.onlyNumber
-          ? [
-              // WhitelistingTextInputFormatter.digitsOnly,
-              FilteringTextInputFormatter.digitsOnly,
-              LengthLimitingTextInputFormatter(widget.maxLengthInputForm)
-            ]
-          : [LengthLimitingTextInputFormatter(widget.maxLengthInputForm)],
-      style: TextStyle(fontSize: AppDimens.textMedium, color: Colors.black),
-      onChanged: (v) {
-        if (_isShowButtonClear || v.isEmpty) {
-          setState(() {
-            _isShowButtonClear = v.isNotEmpty;
-          });
-        }
-        widget.onChanged(v);
-      },
-      textInputAction: widget.iconNextTextInputAction,
-      controller: widget.controller,
-      obscureText: widget.obscureText,
-      focusNode: widget.currentNode,
-      keyboardType: widget.textInputType,
-      onFieldSubmitted: (v) {
-        if (widget.iconNextTextInputAction.toString() ==
-            TextInputAction.next.toString()) {
-          FocusScope.of(context).requestFocus(widget.nextNode);
-          widget.onNext();
-        } else {
-          widget.submitFunc();
-        }
-      },
-      validator: widget.validator,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: InputDecoration(
+      child: TextFormField(
+        inputFormatters: widget.onlyNumber
+            ? [
+                // WhitelistingTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(widget.maxLengthInputForm)
+              ]
+            : [LengthLimitingTextInputFormatter(widget.maxLengthInputForm)],
+        style: TextStyle(fontSize: AppDimens.textMedium, color: Colors.black),
+        onChanged: (v) {
+          if (_isShowSuffixIcon || v.isEmpty) {
+            setState(() {
+              _isShowSuffixIcon = v.isNotEmpty;
+            });
+          }
+          widget.onChanged != null ? widget.onChanged(v) : null;
+        },
+        textInputAction: widget.iconNextTextInputAction,
+        controller: widget.controller,
+        obscureText: _isShowPassword,
+        focusNode: widget.currentNode,
+        keyboardType: widget.textInputType,
+        onFieldSubmitted: (v) {
+          if (widget.iconNextTextInputAction.toString() ==
+              TextInputAction.next.toString()) {
+            FocusScope.of(context).requestFocus(widget.nextNode);
+            widget.onNext();
+          } else {
+            widget.submitFunc();
+          }
+        },
+        validator: widget.validator,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        decoration: InputDecoration(
           filled: true,
           fillColor: Colors.blue.shade900.withOpacity(0.1),
           hintStyle:
@@ -133,47 +133,56 @@ class _BuildInputTextState extends State<BuildInputText> {
           errorStyle: TextStyle(color: Colors.amber[300]),
           prefixIcon: _buildPrefixIcon(),
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(100.0),
               borderSide: BorderSide.none),
-          contentPadding: EdgeInsets.all(12),
-          suffixIcon: Opacity(
-            child: Visibility(
-              visible: _isShowButtonClear,
-              child: GestureDetector(
-                onTap: () {
-                  WidgetsBinding.instance
-                      .addPostFrameCallback((_) => widget.controller.clear());
-                  setState(() {
-                    _isShowButtonClear = false;
-                  });
-                },
-                child: Icon(
-                  Icons.clear,
-                  size: AppDimens.sizeIconSmall,
-                  color: Colors.purple.shade900,
-                ),
-              ),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: AppDimens.paddingMedium,
+              horizontal: AppDimens.paddingHuge),
+          suffixIcon: _buildSuffixIcon(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSuffixIcon() {
+    return _isShowSuffixIcon
+        ? GestureDetector(
+            onTap: () {
+              if (widget.isPassword) {
+                setState(() {
+                  _isShowPassword = !_isShowPassword;
+                });
+              } else {
+                WidgetsBinding.instance
+                    .addPostFrameCallback((_) => widget.controller.clear());
+              }
+            },
+            child: Icon(
+              widget.isPassword ? Icons.remove_red_eye_outlined : Icons.clear,
+              size: AppDimens.sizeIcon,
+              color: Colors.purple.shade900,
             ),
-            opacity: widget.controller.text.isNotEmpty ? 1.0 : 0,
-          )),
-    ));
+          )
+        : null;
   }
 
   Widget _buildPrefixIcon() {
-    return widget.iconLeading == null
+    return widget.iconLeading != null
         ? Icon(
             widget.iconLeading,
             color: Colors.purple[900],
           )
-        : Padding(
-            padding: EdgeInsets.all(15),
-            child: Image.asset(
-              widget.imageLeading ?? '',
-              height: 3,
-              width: 3,
-              fit: BoxFit.fill,
-              color: Colors.white,
-            ),
-          );
+        : widget.imageLeading == null
+            ? null
+            : Padding(
+                padding: EdgeInsets.all(15),
+                child: Image.asset(
+                  widget.imageLeading ?? '',
+                  height: 3,
+                  width: 3,
+                  fit: BoxFit.fill,
+                  color: Colors.white,
+                ),
+              );
   }
 }

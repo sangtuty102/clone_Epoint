@@ -11,10 +11,10 @@ class InitPage extends GetView<AppController> {
     return Container(
       color: Colors.white,
       alignment: Alignment.center,
-      child:  SizedBox(
-      height: 100,
-      child: Image.asset(AppStrings.imgLogo),
-    ),
+      child: SizedBox(
+        height: 100,
+        child: Image.asset(AppStrings.imgLogoApp),
+      ),
     );
   }
 }

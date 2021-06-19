@@ -2,8 +2,10 @@ import 'package:clone_epoint/page/home/home_page.dart';
 import 'package:clone_epoint/page/init_pgae.dart';
 import 'package:clone_epoint/page/login/login_page.dart';
 import 'package:clone_epoint/page/splash/splash_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
@@ -51,6 +53,12 @@ class _AppState extends State<App> {
     return GestureDetector(
       onTap: KeyBoard.hide,
       child: GetMaterialApp(
+        localizationsDelegates: [
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          DefaultCupertinoLocalizations.delegate
+        ],
         supportedLocales: [const Locale('vi')],
         builder: (context, child) {
           return ScrollConfiguration(
