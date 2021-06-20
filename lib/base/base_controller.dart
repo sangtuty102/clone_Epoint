@@ -67,16 +67,9 @@ class BaseGetxController extends GetxController {
       // if (errorContent.isNotEmpty) showSnackBar(errorContent);
       if (errorContent.isNotEmpty) {
         Get.defaultDialog(
-            title: "Thông báo",
+            title: AppStrings.notify,
             content: Text(errorContent),
-            // confirm: ElevatedButton(
-            //   child: Text("Ok"),
-            //   onPressed: () => print("OK pressed"),
-            // ),
-            cancel: ElevatedButton(
-              child: Text("Cancel"),
-              onPressed: () => Get.back(),
-            ));
+            textCancel: AppStrings.cancel);
       }
     });
   }

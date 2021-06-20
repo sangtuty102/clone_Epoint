@@ -21,4 +21,19 @@ abstract class BaseGetWidget<T extends BaseGetxController> extends GetView<T> {
         },
         child: buildWidgets());
   }
+
+  Widget baseShowLoading(WidgetCallback child) {
+    return Obx(
+      () => Stack(
+        children: [
+          child(),
+          Visibility(
+              visible: controller.isShowLoading.value,
+              child: Container(
+                  color: Colors.grey.withOpacity(0.3),
+                  child: Center(child: CircularProgressIndicator()))),
+        ],
+      ),
+    );
+  }
 }

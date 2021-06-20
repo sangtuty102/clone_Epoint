@@ -1,6 +1,5 @@
 import 'package:clone_epoint/base/base.dart';
 import 'package:clone_epoint/const/const.dart';
-import 'package:clone_epoint/page/login/login_model.dart';
 import 'package:clone_epoint/page/login/login_repository.dart';
 import 'package:clone_epoint/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,14 +18,15 @@ class LoginController extends BaseGetxController {
   Future<void> funcLogin() async {
     KeyBoard.hide();
     showLoading();
-
-    LoginResponse response = await _loginRepository
-        .sendLogin(
-            phoneTextController.text.trim(), passwordTextController.text.trim())
-        .whenComplete(() => hideLoading());
+    await 3.seconds.delay().whenComplete(() => hideLoading());
     // TODO: xử lí logic cho các trường hợp
-    if (response.code == "success") {
-      Get.offAllNamed(AppConst.routeHome);
-    }
+    // LoginResponse response = await _loginRepository
+    //     .sendLogin(
+    //         phoneTextController.text.trim(), passwordTextController.text.trim())
+    //     .whenComplete(() => hideLoading());
+
+    // if (response.code == "success") {}
+
+    Get.offAllNamed(AppConst.routeHome);
   }
 }

@@ -11,6 +11,7 @@ class AppDimens {
   static final double paddingSmall = 8;
   static final double paddingMedium = 14;
   static final double paddingHuge = 22;
+  static final double paddingBig = 32;
 
   //icon
   static final double sizeIconSmall = 17;
