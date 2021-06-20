@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 
 class LoginRepository {
   BaseRequest _baseRequest = Get.find();
-
+// demo: request
   Future<LoginResponse> sendLogin(String phone, String password) async {
     var response = await _baseRequest.sendRequest(
         '/sangth/login', RequestMethod.POST,
         jsonMap: {"sdt": phone, "mk": password});
-    return LoginResponse.fromJson(response);
+    return response == null
+        ? LoginResponse()
+        : LoginResponse.fromJson(response);
   }
 }

@@ -10,6 +10,10 @@ class AppConst {
   static const String routeSplash = '/routeSplash';
   static const String routeHome = '/routerHome';
   static const String routeLogin = '/routerLogin';
+  static const String routeRegister = '/routeRegister';
+  static const String routeOTP = '/routeOTP';
+  static const String routeConfirmPwd = '/routeConfirmPwd';
+  static const String routeForgetPwd = '/routeForgetPwd';
 
   //error
   static const int error404 = 404;

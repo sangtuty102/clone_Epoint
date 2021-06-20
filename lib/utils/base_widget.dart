@@ -1,5 +1,7 @@
 import 'package:clone_epoint/const/const.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 Widget baseButtonGradient(
     {@required Widget child, @required Function onPressed}) {
@@ -23,3 +25,17 @@ Widget baseButtonGradient(
     ),
   );
 }
+
+Widget baseDivider() => Container(
+      width: 100,
+      height: 5,
+      decoration: BoxDecoration(
+        color: Colors.yellow[900],
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
+
+Text titleBanner() => Text(
+      AppStrings.labelSafePower,
+      style: Get.textTheme.headline6.copyWith(color: AppColors.textBlue),
+    );

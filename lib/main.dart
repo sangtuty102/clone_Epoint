@@ -1,5 +1,9 @@
 import 'package:clone_epoint/page/home/home_page.dart';
 import 'package:clone_epoint/page/init_pgae.dart';
+import 'package:clone_epoint/page/login/detail/confirm_password/confirm_pwd_page.dart';
+import 'package:clone_epoint/page/login/detail/forget_password/foeget_pwd_page.dart';
+import 'package:clone_epoint/page/login/detail/otp/otp_page.dart';
+import 'package:clone_epoint/page/login/detail/register/register_page.dart';
 import 'package:clone_epoint/page/login/login_page.dart';
 import 'package:clone_epoint/page/splash/splash_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,6 +98,22 @@ class _AppState extends State<App> {
     GetPage(
       name: AppConst.routeLogin,
       page: () => LoginPage(),
+    ),
+    GetPage(
+      name: AppConst.routeRegister,
+      page: () => RegisterPage(),
+    ),
+    GetPage(
+      name: AppConst.routeOTP,
+      page: () => OTPPage(),
+    ),
+    GetPage(
+      name: AppConst.routeForgetPwd,
+      page: () => ForgetPwdPage(),
+    ),
+    GetPage(
+      name: AppConst.routeConfirmPwd,
+      page: () => ConfirmPwdPage(),
     ),
   ];
 }

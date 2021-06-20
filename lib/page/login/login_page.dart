@@ -1,5 +1,6 @@
 import 'package:clone_epoint/base/base.dart';
 import 'package:clone_epoint/const/app_colors.dart';
+import 'package:clone_epoint/const/app_const.dart';
 import 'package:clone_epoint/const/app_dimens.dart';
 import 'package:clone_epoint/const/app_string.dart';
 import 'package:clone_epoint/page/login/login_controller.dart';
@@ -19,8 +20,8 @@ class LoginPage extends BaseLoginPage<LoginController> {
   Widget buildLogin() {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.fromLTRB(AppDimens.paddingDefault,
-            AppDimens.paddingDefault, AppDimens.paddingDefault, 0),
+        padding: EdgeInsets.fromLTRB(AppDimens.paddingBig, AppDimens.paddingBig,
+            AppDimens.paddingBig, 0),
         child: Form(
           key: controller.formKey,
           child: SingleChildScrollView(
@@ -31,17 +32,10 @@ class LoginPage extends BaseLoginPage<LoginController> {
               children: [
                 Text(
                   AppStrings.login,
-                  style: Get.textTheme.headline3
-                      .copyWith(color: AppColors.textBlue),
+                  style: Get.textTheme.headline3.copyWith(
+                      color: AppColors.textBlue, fontWeight: FontWeight.bold),
                 ).paddingSymmetric(vertical: AppDimens.paddingMedium),
-                Container(
-                  width: 100,
-                  height: 2,
-                  decoration: BoxDecoration(
-                    color: Colors.yellowAccent,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
+                baseDivider(),
                 SizedBox(height: AppDimens.paddingHuge),
                 _buildInputPhone(),
                 SizedBox(height: AppDimens.paddingHuge),
@@ -94,9 +88,12 @@ class LoginPage extends BaseLoginPage<LoginController> {
   Row _buildForgetPassword() => Row(
         children: [
           Spacer(),
-          Text(
-            AppStrings.forgetPassword,
-            style: Get.textTheme.bodyText1.copyWith(color: Colors.redAccent),
+          GestureDetector(
+            onTap: () => Get.toNamed(AppConst.routeForgetPwd),
+            child: Text(
+              AppStrings.forgetPassword,
+              style: Get.textTheme.bodyText1.copyWith(color: Colors.redAccent),
+            ),
           )
         ],
       );
@@ -110,7 +107,7 @@ class LoginPage extends BaseLoginPage<LoginController> {
           ),
           SizedBox(width: AppDimens.paddingSmall),
           GestureDetector(
-            onTap: () {},
+            onTap: () => Get.toNamed(AppConst.routeRegister),
             child: Text(
               AppStrings.labelRegisterNow,
               style: Get.textTheme.bodyText1.copyWith(color: Colors.redAccent),

@@ -1,5 +1,6 @@
 import 'package:clone_epoint/const/const.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /// [isDarkMode] hiện tại để 2 Theme dark và light
 ThemeData getThemeApp({bool isDarkMode = false}) {
@@ -75,7 +76,7 @@ ThemeData getThemeApp({bool isDarkMode = false}) {
 
   TextButtonThemeData _textButtonThemeData() => TextButtonThemeData(
         style: ButtonStyle(
-          textStyle: MaterialStateProperty.all(base.textTheme.subtitle1),
+          textStyle: MaterialStateProperty.all(base.textTheme.bodyText1),
           overlayColor: MaterialStateProperty.all(Colors.white38),
         ),
       );
@@ -91,6 +92,16 @@ ThemeData getThemeApp({bool isDarkMode = false}) {
         ),
       );
 
+  DialogTheme _buildDialogTheme() => base.dialogTheme.copyWith(
+        backgroundColor: Colors.white,
+        titleTextStyle:
+            Get.textTheme.headline4.copyWith(color: AppColors.textBlue),
+        contentTextStyle: Get.textTheme.bodyText2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+        ),
+      );
+
   CardTheme _buildCardTheme() => base.cardTheme
       .copyWith(color: AppColors.primaryColorTheme(isDarkMode), elevation: 0.0);
 
@@ -101,7 +112,6 @@ ThemeData getThemeApp({bool isDarkMode = false}) {
     appBarTheme: _buildAppBarTheme(),
     bottomAppBarTheme: _buildBottomAppBarTheme(),
     bottomSheetTheme: _buildBottomSheetTheme(),
-
     tabBarTheme: base.tabBarTheme.copyWith(
       labelColor: AppColors.primaryColorTheme(isDarkMode),
       unselectedLabelColor: AppColors.primaryColorTheme(isDarkMode),
@@ -115,6 +125,7 @@ ThemeData getThemeApp({bool isDarkMode = false}) {
     textButtonTheme: _textButtonThemeData(),
     scaffoldBackgroundColor: isDarkMode ? Color(0xFF0b0725) : Color(0xF0F0F0F0),
     accentColor: Colors.orange,
+    dialogTheme: _buildDialogTheme(),
   );
   // buttonColor: AppColors.buttonColor,
   // cardColor: isDarkMode ? AppColors.cardColor : Colors.pink[50],
